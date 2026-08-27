@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" fill="none">
+  <!-- Shield / cert mark -->
+  <path d="M14 8L28 12v10c0 7-5 13-14 15.5C5 35 0 29 0 22V12L14 8z" fill="#7EC8A4"/>
+  <path d="M14 8L28 12v10c0 7-5 13-14 15.5C5 35 0 29 0 22V12L14 8z" stroke="#315B44" stroke-width="1.5" fill="none"/>
+  <path d="M8 22l4.5 4.5 7-8" stroke="#1F3B31" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- NITDA wordmark -->
+  <text x="38" y="34" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="#F0F7F4">NITDA</text>
+
+  <!-- Tagline -->
+  <text x="38" y="50" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="9" font-weight="500" letter-spacing="0.8" fill="#A8C4B8">CERTIFICATE PORTAL</text>
+</svg>
