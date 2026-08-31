@@ -1,52 +1,50 @@
 "use client";
-import { Building2, ShieldCheck, Users } from "lucide-react";
-import Link from "next/link";
-import { TopBar } from "@/components/layout/TopBar";
-import { Card } from "@/components/ui/Card";
+import React from "react";
 import { useAuthStore } from "@/store/auth";
-
-const adminTiles = [
-  { href: "/dashboard/users", label: "Employees", icon: Users, description: "Manage staff records" },
-  { href: "/dashboard/departments", label: "Departments", icon: Building2, description: "Manage org structure" },
-  { href: "/dashboard/audit", label: "Audit Trail", icon: ShieldCheck, description: "Review recent changes" },
-];
+import KpiCardGrid from "@/app/dashboard/KpiCardGrid"
+import GenderDistributionChart from "@/app/dashboard/GenderDistributionChart";
+import OfficeStationChart from "@/app/dashboard/OfficeStationChart";
+import DepartmentTable from "@/app/dashboard/DepartmentTable";
 
 export default function DashboardPage() {
-  const { user, isHr } = useAuthStore();
+  const { user } = useAuthStore();
 
   return (
-    <>
-      <TopBar title="Dashboard" subtitle={`Welcome back, ${user?.firstName ?? ""}`} />
-      <div className="p-6 space-y-6">
-        {isHr() ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {adminTiles.map(({ href, label, icon: Icon, description }) => (
-              <Link key={href} href={href}>
-                <Card padding={false} className="p-5 hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <div className="w-10 h-10 rounded-lg bg-[#1C4B40]/10 flex items-center justify-center mb-3">
-                    <Icon className="w-5 h-5 text-[#1C4B40]" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900">{label}</h3>
-                  <p className="text-sm text-gray-500 mt-1">{description}</p>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <Card className="p-6">
-            <h2 className="font-semibold text-gray-900 mb-1">Your Profile</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              View your information or request a change from the Settings page.
-            </p>
-            <Link
-              href="/dashboard/profile"
-              className="inline-flex items-center text-sm font-medium text-[#1C4B40] hover:underline"
-            >
-              Go to Settings →
-            </Link>
-          </Card>
-        )}
+    <div className="p-6 space-y-6 bg-[#F8F9FA] min-h-screen">
+      {/* Header Banner */}
+      <div className="bg-[#1C4B40] text-white p-6 rounded-2xl flex justify-between items-center shadow-sm">
+        <div>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-xs text-emerald-100 mt-1">
+            Welcome back, {user?.firstName ?? "Admin"} — here&apos;s what&apos;s happening today
+          </p>
+        </div>
+        <div className="text-right">
+          <span className="text-xs text-emerald-200">Hello {user?.role ?? "Admin"}</span>
+          <p className="text-xs text-white font-medium">
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
+        </div>
       </div>
-    </>
+
+      {/* KPI Cards Grid */}
+      <KpiCardGrid />
+
+      {/* Middle Grid: Demographics + Stations (Left) & Department Count (Right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-5 space-y-6">
+          <GenderDistributionChart />
+          <OfficeStationChart />
+        </div>
+        <div className="lg:col-span-7">
+          <DepartmentTable />
+        </div>
+      </div>
+    </div>
   );
 }
