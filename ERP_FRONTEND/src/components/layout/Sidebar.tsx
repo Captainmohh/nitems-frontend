@@ -1,123 +1,101 @@
 "use client";
+import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
-import {
-  LayoutDashboard,
-  Building2,
-  Users,
-  LogOut,
-  Settings,
-  Globe,
-  ShieldCheck,
-} from "lucide-react";
-import { clsx } from "clsx";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth";
+import {
+  Home,
+  Contact,
+  UserPlus,
+  RefreshCw,
+  Users,
+  Settings,
+  LogOut,
+} from "lucide-react";
 
-const adminLinks = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/dashboard/departments", label: "Departments", icon: Building2 },
-  { href: "/dashboard/users", label: "Employees", icon: Users },
-  { href: "/dashboard/audit", label: "Audit Trail", icon: ShieldCheck },
-  { href: "/dashboard/profile", label: "Settings", icon: Settings },
-];
+interface NavItem {
+  label: string;
+  href: string;
+  icon: React.ElementType;
+}
 
-const staffLinks = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/dashboard/profile", label: "Settings", icon: Settings },
+const navItems: NavItem[] = [
+  { label: "Dashboard", href: "/dashboard", icon: Home },
+  { label: "Employee Records", href: "/dashboard/employee-records", icon: Contact },
+  { label: "Onboarding", href: "/dashboard/onboarding", icon: UserPlus },
+  { label: "Data Update", href: "/dashboard/data-update", icon: RefreshCw },
+  { label: "User Management", href: "/dashboard/user-management", icon: Users },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { user, logout, isAdmin, isHr } = useAuthStore();
+  const router = useRouter();
+  const { logout } = useAuthStore();
 
-  const links = isAdmin() || isHr() ? adminLinks : staffLinks;
-
-  const isActive = (href: string, exact?: boolean) => {
-    if (exact) return pathname === href;
-    return pathname.startsWith(href);
+  const handleLogout = async () => {
+    await logout();
+    router.replace("/auth/sign-in");
   };
 
   return (
-    <aside className="w-56 bg-[#1C3D33] flex flex-col h-screen sticky top-0 flex-shrink-0">
-      {/* Logo block */}
-      <div className="flex flex-col items-center justify-center py-6 border-b border-white/10">
-        <div className="bg-white rounded-xl px-3 py-2 mb-2">
-          <Image
-            src="/nitda-logo.png"
-            alt="NITDA"
-            width={80}
-            height={28}
-            className="object-contain"
-          />
+    <aside className="w-64 bg-[#0B4D3C] text-white flex flex-col h-screen shrink-0 p-5 select-none">
+      {/* Brand Logo & Typography */}
+      <div className="pt-2 pb-8 px-2 flex items-center gap-0">
+        <Image
+          src="/nitems-logo.png"
+          alt="nitems Logo"
+          width={44}
+          height={44}
+          className="w-13 h-13 shrink-0 object-contain"
+          priority
+        />
+        <div className="flex flex-col justify-center">
+          <span className="text-[28px] font-[900] text-white tracking-[-0.03em] leading-none lowercase">
+            nitems
+          </span>
+          <span className="text-[6.5px] uppercase tracking-[0.04em] text-white/80 font-normal leading-tight mt-1 whitespace-nowrap">
+            NITDA EMPLOYEE MANAGEMENT SYSTEM
+          </span>
         </div>
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#7EC8A4] mt-1">
-          ERP
-        </p>
       </div>
 
-      {/* MAIN MENU label */}
-      <p className="text-[9px] font-bold uppercase tracking-widest text-white/30 px-5 pt-5 pb-2">
-        Main Menu
-      </p>
+      {/* Navigation Menu */}
+      <nav className="flex-1 space-y-1.5">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = pathname === item.href;
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto sidebar-scroll px-3 space-y-0.5 pb-4">
-        {links.map(({ href, label, icon: Icon, exact }) => {
-          const active = isActive(href, exact);
           return (
             <Link
-              key={href}
-              href={href}
-              className={clsx(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
-                active
-                  ? "bg-white/15 text-white"
-                  : "text-white/60 hover:bg-white/10 hover:text-white"
-              )}
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? "bg-white text-[#0B4D3C] font-bold shadow-sm"
+                  : "text-white/85 hover:bg-white/10 hover:text-white"
+              }`}
             >
-              <Icon className={clsx("w-4 h-4 flex-shrink-0", active ? "text-[#7EC8A4]" : "text-white/50")} />
-              <span>{label}</span>
-              {active && (
-                <span className="ml-auto w-1.5 h-5 rounded-full bg-[#7EC8A4]" />
-              )}
+              <Icon
+                className={`w-4 h-4 shrink-0 ${
+                  isActive ? "text-[#0B4D3C]" : "text-white/80"
+                }`}
+              />
+              <span>{item.label}</span>
             </Link>
           );
         })}
-      </nav>
 
-      {/* Bottom: NITDA site + logout */}
-      <div className="p-3 border-t border-white/10 space-y-0.5">
-        <a
-          href="https://nitda.gov.ng"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:bg-white/10 hover:text-white transition-all"
-        >
-          <Globe className="w-4 h-4 text-white/50" />
-          <span>NITDA Website</span>
-        </a>
-
+        {/* Logout Button */}
         <button
-          onClick={() => {
-            logout();
-            window.location.href = "/auth/sign-in";
-          }}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:bg-red-500/20 hover:text-red-300 transition-all"
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-medium text-white/85 hover:bg-white/10 hover:text-white transition-all text-left"
         >
-          <LogOut className="w-4 h-4" />
+          <LogOut className="w-4 h-4 shrink-0 text-white/80" />
           <span>Logout</span>
         </button>
-
-        {user && (
-          <div className="mt-2 px-3 py-2.5 rounded-lg bg-white/10 border border-white/10">
-            <p className="text-xs font-semibold text-white truncate">
-              {user.firstName} {user.lastName}
-            </p>
-            <p className="text-[10px] text-white/50 truncate">{user.email}</p>
-          </div>
-        )}
-      </div>
+      </nav>
     </aside>
   );
 }
