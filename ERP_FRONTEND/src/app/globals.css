@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@theme {
+  /* Light dashboard palette — sidebar stays dark, main area is light */
+  --color-bg:           #F4F6F5;
+  --color-surface:      #FFFFFF;
+  --color-surface-hover:#F0F4F2;
+  --color-border:       #E2E8E5;
+  --color-border-hover: #C5D5CE;
+  --color-text:         #111827;
+  --color-muted:        #6B7280;
+  --color-subtle:       #9CA3AF;
+
+  /* Brand — sidebar / accents */
+  --color-primary:      #1C4B40;
+  --color-primary-dim:  rgba(28,75,64,0.10);
+  --color-accent:       #1C4B40;
+  --color-accent-light: #7EC8A4;
+
+  /* Semantic */
+  --color-warning:      #F59E0B;
+  --color-warning-dim:  rgba(245,158,11,0.12);
+  --color-danger:       #EF4444;
+  --color-danger-dim:   rgba(239,68,68,0.12);
+  --color-success:      #10B981;
+  --color-success-dim:  rgba(16,185,129,0.12);
+
+  --font-display: "Inter", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  background-color: white;
+  color: #111827;
+}
+
+/* Dashboard root: light background, dark text */
+.dashboard-root {
+  background-color: #F4F6F5;
+  color: #111827;
+}
+
+::placeholder { color: #9CA3AF; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C5D5CE; border-radius: 3px; }
+
+/* Sidebar scrollbar */
+.sidebar-scroll::-webkit-scrollbar-thumb { background: #315B44; }
