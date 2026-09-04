@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Topbar from "@/components/layout/Topbar"
 
 
@@ -6,3 +7,10 @@ export default function Home() {
     <Topbar />
   );
 }
+=======
+import { redirect } from "next/navigation";
+
+export default function RootPage() {
+  redirect("/dashboard");
+}
+>>>>>>> main
