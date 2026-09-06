@@ -11,9 +11,10 @@ export function proxy(request: NextRequest) {
     pathname.startsWith(route),
   );
 
-  if (!hasSession && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
-  }
+  // TEMP: bypassing auth redirect for local page building — DO NOT COMMIT
+  // if (!hasSession && !isPublicRoute) {
+  //   return NextResponse.redirect(new URL("/sign-in", request.url));
+  // }
 
   if (hasSession && isPublicRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
