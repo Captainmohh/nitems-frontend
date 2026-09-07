@@ -17,6 +17,10 @@ interface OnboardingRequest {
   status: OnboardingStatus;
 }
 
+interface OnboardingRequestTableProps {
+  status: OnboardingStatus;
+}
+
 const avatarColors = [
   "bg-orange-500",
   "bg-blue-500",
@@ -82,7 +86,7 @@ const columns: LegacyColumnDef<OnboardingRequest>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <div
-        className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-bold text-white ${getAvatarColor(
+        className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-medium text-white ${getAvatarColor(
          row.original.name
       )}`}
 >
@@ -131,7 +135,8 @@ const columns: LegacyColumnDef<OnboardingRequest>[] = [
   },
 ];
 
-export function OnboardingRequestTable() {
+export function OnboardingRequestTable({ status }: OnboardingRequestTableProps) {
+  const filteredData = mockData.filter((request) => request.status === status);
   const table = useLegacyTable({
     data: mockData,
     columns,
@@ -139,15 +144,25 @@ export function OnboardingRequestTable() {
   });
 
   return (
-    <table className="w-full border-collapse">
+    <table className="w-full border-collapse table-fixed">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id} className="border-b border-gray-100">
+          <tr key={headerGroup.id} className="bg-gray-50 border-b border-gray-200">
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
-                className="text-left text-xs font-bold text-gray-500 uppercase tracking-wide py-3 px-4"
-              >
+                className={`text-left text-xs font-bold text-gray-500 uppercase tracking-wide py-3 px-3 ${
+    header.id === "name"
+      ? "w-[30%]"
+      : header.id === "email"
+      ? "w-[25%]"
+      : header.id === "dueDate"
+      ? "w-[15%]"
+      : header.id === "status"
+      ? "w-[15%]"
+      : "w-[10%]"
+  }`}
+>
                 {flexRender(header.column.columnDef.header, header.getContext())}
               </th>
             ))}
@@ -156,9 +171,9 @@ export function OnboardingRequestTable() {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className="border-b border-gray-50">
+          <tr key={row.id} className="border-b border-gray-200">
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="py-4 px-4">
+              <td key={cell.id} className="py-4 px-1">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
