@@ -10,7 +10,7 @@ const data = [
 
 export function GenderDistributionChart() {
   return (
-    <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+    <div className="bg-white border border-gray-100 rounded-xl p-4 sm:p-5 shadow-sm">
       <h2 className="text-xs font-bold text-gray-800 uppercase tracking-wide mb-2">
         Gender Distribution
       </h2>
