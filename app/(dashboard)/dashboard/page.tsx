@@ -3,18 +3,26 @@ import { GenderDistributionChart } from "./_components/gender-distribution-chart
 import { OfficeStationChart } from "./_components/office-station-chart";
 import { DepartmentUnitCount } from "./_components/department-unit-count";
 import { LevelGradeChart } from "./_components/level-grade-chart";
-import { PendingActiveTable } from "./_components/pending-active-table";
+import { EmployeeStatusTable } from "./_components/employee-status-table";
 
 export default function DashboardPage() {
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="space-y-6 pb-12">
+      {/* Top Row: Metrics Overview */}
       <StatCardGrid />
-      <GenderDistributionChart />
-      <OfficeStationChart />
-      <DepartmentUnitCount />
+
+      {/* Middle Row: Charts & Department Count */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <GenderDistributionChart />
+        <OfficeStationChart />
+        <DepartmentUnitCount />
+      </div>
+
+      {/* Lower Row 1: Full-width Level/Grade Distribution Chart */}
       <LevelGradeChart />
-      <PendingActiveTable />
+
+      {/* Lower Row 2: Status Table (Pending / Active) */}
+      <EmployeeStatusTable />
     </div>
   );
 }
