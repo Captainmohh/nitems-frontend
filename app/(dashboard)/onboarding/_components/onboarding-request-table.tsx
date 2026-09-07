@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { flexRender } from "@tanstack/react-table";
 import { useLegacyTable, getCoreRowModel } from "@tanstack/react-table/legacy";
 import type { LegacyColumnDef } from "@tanstack/react-table/legacy";
@@ -7,6 +8,32 @@ import { Badge } from "@/components/ui/badge";
 import { MoreVertical } from "lucide-react"; 
 
 type OnboardingStatus = "pending" | "active";
+
+function ActionMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-gray-400 hover:text-gray-600"
+      >
+        <MoreVertical className="w-4 h-4" />
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 top-6 z-10 w-40 bg-white border border-gray-100 rounded-lg shadow-lg py-1">
+          <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+            View Profile
+          </button>
+          <button className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-50">
+            Cancel
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 interface OnboardingRequest {
   id: string;
@@ -127,11 +154,7 @@ const columns: LegacyColumnDef<OnboardingRequest>[] = [
   {
     id: "action",
     header: "Action",
-    cell: () => (
-    <button className="text-gray-400 hover:text-gray-600">
-      <MoreVertical className="w-4 h-4" />
-    </button>
-  ),
+    cell: () => <ActionMenu />,
   },
 ];
 
