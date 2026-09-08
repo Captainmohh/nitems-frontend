@@ -1,3 +1,6 @@
+import { UserRoleTable } from "./_components/user-role-table";
+
+
 export default function UserManagementPage() {
-  return <h1>User Management</h1>;
+  return <UserRoleTable />;
 }
