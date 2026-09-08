@@ -6,8 +6,9 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        pending: "bg-orange-600 text-white",
-        active: "bg-primary-green/10 text-primary-green",
+        pending: "bg-orange-400 text-white",
+        active: "bg-green-600 text-white",
+        terminated:"bg-orange-600 text-white",
         default: "bg-gray-100 text-gray-600",
       },
     },
