@@ -2,9 +2,13 @@
 
 :root {
   --background: #ffffff;
+<<<<<<< Updated upstream
   --foreground: #171717;
   --color-primary-green: #004e2b;
   --color-primary-white: #ffffff;
+=======
+  --foreground: #000000;
+>>>>>>> Stashed changes
 }
 
 @theme inline {
