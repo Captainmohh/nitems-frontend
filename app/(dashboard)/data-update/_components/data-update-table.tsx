@@ -242,37 +242,51 @@ export function DataUpdateTable() {
     of {mockData.length} entries
   </p>
 
-  <div className="flex items-center gap-1">
-    <button
-      onClick={() => table.previousPage()}
-      disabled={!table.getCanPreviousPage()}
-      className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
-    >
-      &lt;
-    </button>
+ <div className="flex items-center gap-1">
+  <button
+    onClick={() => table.setPageIndex(0)}
+    disabled={!table.getCanPreviousPage()}
+    className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+  >
+    &laquo;
+  </button>
+  <button
+    onClick={() => table.previousPage()}
+    disabled={!table.getCanPreviousPage()}
+    className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+  >
+    &lsaquo;
+  </button>
 
-    {Array.from({ length: table.getPageCount() }, (_, i) => (
-      <button
-        key={i}
-        onClick={() => table.setPageIndex(i)}
-        className={`w-8 h-8 rounded-lg text-sm font-medium ${
-          table.getState().pagination.pageIndex === i
-            ? "bg-primary-green text-white"
-            : "text-gray-500 hover:bg-gray-50"
-        }`}
-      >
-        {i + 1}
-      </button>
-    ))}
-
+  {Array.from({ length: table.getPageCount() }, (_, i) => (
     <button
-      onClick={() => table.nextPage()}
-      disabled={!table.getCanNextPage()}
-      className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+      key={i}
+      onClick={() => table.setPageIndex(i)}
+      className={`w-7 h-7 rounded-md text-sm font-medium ${
+        table.getState().pagination.pageIndex === i
+          ? "bg-blue-600 text-white"
+          : "text-gray-500 hover:bg-gray-50"
+      }`}
     >
-      &gt;
+      {i + 1}
     </button>
-  </div>
+  ))}
+
+  <button
+    onClick={() => table.nextPage()}
+    disabled={!table.getCanNextPage()}
+    className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+  >
+    &rsaquo;
+  </button>
+  <button
+    onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+    disabled={!table.getCanNextPage()}
+    className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+  >
+    &raquo;
+  </button>
+</div>
 </div>
 </div>
   );

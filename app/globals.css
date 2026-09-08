@@ -2,13 +2,11 @@
 
 :root {
   --background: #ffffff;
-<<<<<<< Updated upstream
   --foreground: #171717;
   --color-primary-green: #004e2b;
   --color-primary-white: #ffffff;
-=======
-  --foreground: #000000;
->>>>>>> Stashed changes
+  --color-terminated: #ef4a00;
+  --color-pending: #ff9f29;
 }
 
 @theme inline {
@@ -16,6 +14,8 @@
   --color-foreground: var(--foreground);
   --color-primary-green: var(--color-primary-green);
   --color-primary-white: var(--color-primary-white);
+  --color-terminated: var(--color-terminated);
+  --color-pending: var(--color-pending);
   --font-sans: var(--font-inter);
 }
 
