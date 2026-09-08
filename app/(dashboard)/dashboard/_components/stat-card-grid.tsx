@@ -72,15 +72,15 @@ const kpiData: KpiItem[] = [
 
 export function StatCardGrid() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
       {kpiData.map((item, index) => {
         const Icon = item.icon;
         return (
           <div
             key={index}
-            className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+            className="bg-white border border-gray-100 rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
           >
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <div className={`p-2 rounded-lg ${item.bgColor} ${item.iconColor}`}>
                 <Icon className="w-4 h-4" />
               </div>
@@ -88,10 +88,10 @@ export function StatCardGrid() {
             </div>
 
             <div className="flex items-baseline justify-between mt-1">
-              <span className="text-3xl font-bold text-gray-900">{item.value}</span>
+              <span className="text-2xl sm:text-3xl font-bold text-gray-900">{item.value}</span>
             </div>
 
-            <div className="mt-3 flex items-center gap-1.5">
+            <div className="mt-2 sm:mt-3 flex items-center gap-1.5">
               <span
                 className={`text-[11px] font-semibold ${
                   item.isPositive ? "text-emerald-600" : "text-red-500"

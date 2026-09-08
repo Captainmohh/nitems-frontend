@@ -1,36 +1,21 @@
+import { WelcomeBanner } from "./_components/welcome-banner";
 import { StatCardGrid } from "./_components/stat-card-grid";
 import { GenderDistributionChart } from "./_components/gender-distribution-chart";
 import { OfficeStationChart } from "./_components/office-station-chart";
 import { DepartmentUnitCount } from "./_components/department-unit-count";
+import { LevelGradeChart } from "./_components/level-grade-chart";
+import { EmployeeStatusTable } from "./_components/employee-status-table";
 
 export default function DashboardPage() {
   return (
-    <div className="p-6 space-y-6 bg-[#F8F9FA] min-h-screen">
-      {/* Header Banner */}
-      <div className="bg-[#0B4D3C] text-white p-6 rounded-2xl flex justify-between items-center shadow-sm">
-        <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-xs text-emerald-100 mt-1">
-            Welcome back, Admin — here&apos;s what&apos;s happening today
-          </p>
-        </div>
-        <div className="text-right">
-          <span className="text-xs text-emerald-200">Hello Admin</span>
-          <p className="text-xs text-white font-medium">
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
-        </div>
-      </div>
+    <div className="space-y-6 pb-12">
+      {/* 1. Green Welcome Banner */}
+      <WelcomeBanner />
 
-      {/* KPI Cards */}
+      {/* 2. Top Row: Metrics Overview */}
       <StatCardGrid />
 
-      {/* Middle Grid */}
+      {/* 3. Middle Row: Left Column (Gender Distribution + Office Station) & Right Column (Department Count) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 space-y-6">
           <GenderDistributionChart />
@@ -40,6 +25,12 @@ export default function DashboardPage() {
           <DepartmentUnitCount />
         </div>
       </div>
+
+      {/* 4. Lower Row 1: Level/Grade Chart */}
+      <LevelGradeChart />
+
+      {/* 5. Lower Row 2: Status Table */}
+      <EmployeeStatusTable />
     </div>
   );
 }

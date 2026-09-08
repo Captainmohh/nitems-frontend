@@ -32,12 +32,12 @@ const legendItems = [
 
 export function OfficeStationChart() {
   return (
-    <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+    <div className="bg-white border border-gray-100 rounded-xl p-4 sm:p-5 shadow-sm">
       <h2 className="text-xs font-bold text-gray-800 uppercase tracking-wide mb-3">
         Office Station
       </h2>
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4">
         {legendItems.map((item, idx) => (
           <div key={idx} className="flex items-center gap-1.5">
             <span
