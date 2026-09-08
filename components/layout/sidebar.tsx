@@ -65,7 +65,7 @@ export function Sidebar({
     <>
       {/* Brand Logo & Typography Header */}
       <div
-        className={`pt-2 pb-5 border-b border-gray-100 flex items-center transition-all ${
+        className={`pt-2 pb-5 border-b border-gray-100 flex items-center overflow-hidden transition-all ${
           collapsed ? "justify-center px-0" : "px-1 justify-start gap-2.5"
         }`}
       >
@@ -78,11 +78,11 @@ export function Sidebar({
           priority
         />
         {!collapsed && (
-          <div className="flex flex-col justify-center min-w-0">
-            <span className="text-[24px] font-[900] text-[#0B4A2D] tracking-[-0.03em] leading-none lowercase">
+          <div className="flex flex-col justify-center min-w-0 flex-1 overflow-hidden">
+            <span className="text-[24px] font-[900] text-[#0B4A2D] tracking-[-0.03em] leading-none lowercase truncate">
               nitems
             </span>
-            <span className="text-[5.5px] uppercase tracking-[0.04em] text-gray-500 font-semibold leading-tight mt-1 whitespace-nowrap">
+            <span className="text-[9px] uppercase tracking-[0.04em] text-gray-500 font-semibold leading-tight mt-1 truncate">
               NITDA EMPLOYEE MANAGEMENT SYSTEM
             </span>
           </div>
