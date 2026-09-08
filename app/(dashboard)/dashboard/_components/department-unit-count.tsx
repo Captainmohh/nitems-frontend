@@ -14,10 +14,15 @@ const DEFAULT_DATA: DepartmentData[] = [
   { id: "2", name: "IT INFRASTRUCTURE SOLUTIONS", strength: 34 },
   { id: "3", name: "CYBERSECURITY", strength: 16 },
   { id: "4", name: "REGULATIONS AND COMPLIANCE", strength: 7 },
-  { id: "5", name: "DIGITAL LITERACY & CAPACITY BUILDING", strength: 42 },
-  { id: "6", name: "FINANCE & ACCOUNTS", strength: 19 },
-  { id: "7", name: "HUMAN RESOURCES MANAGEMENT", strength: 28 },
-  { id: "8", name: "PROCUREMENT SERVICES", strength: 11 },
+  { id: "5", name: "STAKEHOLDER MANAGEMENT & PARTNERSHIPS", strength: 9 },
+  { id: "6", name: "RESEARCH AND DEVELOPMENT", strength: 6 },
+  { id: "7", name: "DIGITAL LITERACY AND CAPACITY BUILDING", strength: 12 },
+  { id: "8", name: "CORPORATE COMMUNICATIONS & MEDIA RELATIONS", strength: 11 },
+  { id: "9", name: "HUMAN RESOURCE AND ADMINISTRATION", strength: 78 },
+  { id: "10", name: "PROJECT MANAGEMENT", strength: 15 },
+  { id: "11", name: "AUDIT AND INTERNAL CONTROL", strength: 8 },
+  { id: "12", name: "FINANCIAL MANAGEMENT AND CONTROL", strength: 16 },
+  { id: "13", name: "DG OFFICE", strength: 9 },
 ];
 
 export function DepartmentUnitCount() {
