@@ -15,7 +15,7 @@ export default function OnboardingPage() {
       <div className="flex items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Image src="/rocket.png" alt="Onboarding" width={32} height={32} />
-          <h1 className="text-2xl font-semibold text-primary-green">
+          <h1 className="text-2xl font-semibold text-accent-green">
             Onboarding
           </h1>
         </div>
@@ -27,7 +27,7 @@ export default function OnboardingPage() {
           Initiate Onboarding &gt;&gt;&gt;
           </button>
 
-          <button className="px-5 py-2.5 rounded-lg bg-primary-green text-white text-sm font-medium hover:bg-primary-green/90 transition-colors">
+          <button className="px-5 py-2.5 rounded-lg bg-accent-green text-white text-sm font-medium hover:bg-primary-green/90 transition-colors">
             Onboard New User &gt;&gt;&gt;
           </button>
         </div>

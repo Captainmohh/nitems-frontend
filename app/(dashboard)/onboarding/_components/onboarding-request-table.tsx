@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import { flexRender } from "@tanstack/react-table";
-import { useLegacyTable, getCoreRowModel } from "@tanstack/react-table/legacy";
+import {
+  useLegacyTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+} from "@tanstack/react-table/legacy";
 import type { LegacyColumnDef } from "@tanstack/react-table/legacy";
 import { Badge } from "@/components/ui/badge";
-import { MoreVertical } from "lucide-react"; 
+import { MoreVertical } from "lucide-react";
 
 type OnboardingStatus = "pending" | "active";
 
@@ -103,7 +107,7 @@ const mockData: OnboardingRequest[] = [
     email: "mmagama@nitda.gov.ng",
     dueDate: "27 Mar 2026",
     status: "pending",
-  }
+  },
 ];
 
 const columns: LegacyColumnDef<OnboardingRequest>[] = [
@@ -113,12 +117,12 @@ const columns: LegacyColumnDef<OnboardingRequest>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <div
-        className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-medium text-white ${getAvatarColor(
-         row.original.name
-      )}`}
->
-  {row.original.name.charAt(0)}
-</div>
+          className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-medium text-white ${getAvatarColor(
+            row.original.name
+          )}`}
+        >
+          {row.original.name.charAt(0)}
+        </div>
         <div>
           <p className="text-sm font-medium text-gray-900">
             {row.original.name}
@@ -160,49 +164,127 @@ const columns: LegacyColumnDef<OnboardingRequest>[] = [
 
 export function OnboardingRequestTable({ status }: OnboardingRequestTableProps) {
   const filteredData = mockData.filter((request) => request.status === status);
+
   const table = useLegacyTable({
-    data: mockData,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 5,
+      },
+    },
   });
 
   return (
-    <table className="w-full border-collapse table-fixed">
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id} className="bg-gray-50 border-b border-gray-200">
-            {headerGroup.headers.map((header) => (
-              <th
-                key={header.id}
-                className={`text-left text-xs font-bold text-gray-500 uppercase tracking-wide py-3 px-3 ${
-    header.id === "name"
-      ? "w-[30%]"
-      : header.id === "email"
-      ? "w-[25%]"
-      : header.id === "dueDate"
-      ? "w-[15%]"
-      : header.id === "status"
-      ? "w-[15%]"
-      : "w-[10%]"
-  }`}
->
-                {flexRender(header.column.columnDef.header, header.getContext())}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className="border-b border-gray-200">
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="py-4 px-1">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      <table className="w-full border-collapse table-fixed">
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr
+              key={headerGroup.id}
+              className="bg-gray-200 border-b border-gray-200"
+            >
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  className={`text-left text-xs font-bold text-gray-500 uppercase tracking-wide py-3 px-3 ${
+                    header.id === "name"
+                      ? "w-[30%]"
+                      : header.id === "email"
+                      ? "w-[25%]"
+                      : header.id === "dueDate"
+                      ? "w-[15%]"
+                      : header.id === "status"
+                      ? "w-[15%]"
+                      : "w-[10%]"
+                  }`}
+                >
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id} className="border-b border-gray-200">
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className="py-4 px-1">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div className="flex items-center justify-between px-3 py-4">
+        <p className="text-sm text-gray-500">
+          Showing{" "}
+          {table.getState().pagination.pageIndex *
+            table.getState().pagination.pageSize +
+            1}{" "}
+          to{" "}
+          {Math.min(
+            (table.getState().pagination.pageIndex + 1) *
+              table.getState().pagination.pageSize,
+            filteredData.length
+          )}{" "}
+          of {filteredData.length} entries
+        </p>
+
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+            className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+          >
+            &laquo;
+          </button>
+          <button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+          >
+            &lsaquo;
+          </button>
+
+          {Array.from({ length: table.getPageCount() }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => table.setPageIndex(i)}
+              className={`w-7 h-7 rounded-md text-sm font-medium ${
+                table.getState().pagination.pageIndex === i
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-500 hover:bg-gray-50"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+          >
+            &rsaquo;
+          </button>
+          <button
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+            className="px-2 py-1 text-gray-400 disabled:opacity-30 hover:text-gray-600"
+          >
+            &raquo;
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

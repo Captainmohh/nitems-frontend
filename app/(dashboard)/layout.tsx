@@ -28,8 +28,8 @@ export default function DashboardLayout({
           onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
           onOpenMobileNav={() => setIsMobileOpen(true)}
         />
-        <main className="flex-1 px-4 sm:px-6 md:px-8 pt-3 md:pt-4 pb-6 md:pb-8 overflow-y-auto">
-          {children}
+        <main className="flex-1 overflow-y-auto w-full min-w-0">
+          <div className="max-w-6xl mx-auto">{children}</div>
         </main>
       </div>
     </div>
