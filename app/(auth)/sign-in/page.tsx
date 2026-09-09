@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+
+
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,11 +15,14 @@ export default function SignInPage() {
         className="w-full lg:w-1/2 min-h-screen flex items-center bg-linear-to-r from bg-[#ECF0FF] to-white justify-center px-6 sm:px-10 lg:px-16
           py-12">
         <div className="w-full max-w-md lg:max-w-lg">
-          <img
-            src="./nitems.png"
-            alt="NITDA Logo"
-            className="w:386px h:94px top:172px left:94px mt-10 mb-6"></img>
-
+          <Image
+            src="/nitems.png"
+              alt="NITDA logo"
+              width={94}
+                height={94}
+                className="h-[94px] w-auto mt-10 mb-6"
+                />
+                
           <h1 className="w:530px h:78px top:305px left:114px text-1xl sm:text-2xl lg:text-3xl font-semibold text-black mb-10">
             Welcome to the NITDA <br /> Employment Management System
           </h1>
@@ -69,7 +75,7 @@ export default function SignInPage() {
                 placeholder="Email"
                 required
                 style={{ paddingLeft: "50px" }}
-                className="w-full p-3 sm:p-4 rounded-lg bg-gray-100 border border-gray-200 placeholder-gray-400 
+                className="w-full p-3 sm:p-4 rounded-lg bg-gray-100 border border-gray-200 placeholder-gray-400
                 font-medium text-black focus:outline-none focus:ring-2 focus:ring-emerald-200"></input>
             </div>
 
@@ -84,8 +90,8 @@ export default function SignInPage() {
                 placeholder="Password"
                 required
                 style={{ paddingLeft: "50px", paddingRight: "50px" }}
-                className="w-full p-3 sm:p-4 rounded-lg bg-gray-100 border 
-                border-gray-200 placeholder-gray-400 font-medium text-black focus:outline-none 
+                className="w-full p-3 sm:p-4 rounded-lg bg-gray-100 border
+                border-gray-200 placeholder-gray-400 font-medium text-black focus:outline-none
                 focus:ring-2 focus:ring-emerald-200"
               />
 
@@ -120,7 +126,7 @@ export default function SignInPage() {
             <div>
               <button
                 type="submit"
-                className="w-full py-3 px-4 bg-emerald-500 hover:bg-emerald-600 text-white 
+                className="w-full py-3 px-4 bg-emerald-500 hover:bg-emerald-600 text-white
               font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-200">
                 Sign In
               </button>
